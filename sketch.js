@@ -4,6 +4,7 @@ var gameState = 0
 var score = 0
 var end,endimg,start,startimg
 var peoplegroup
+var bin
 
 function preload(){
     trashimg = loadImage ("images/trashbag.jpg")
@@ -25,6 +26,25 @@ function setup(){
     start = createSprite(width/2,height/2,200,50)
     start.addImage(startimg)
 
+    person  = createSprite(width/2,height/2)
+    person.addImage(personimg)
+    person.visible=false
+
+
+
+    bin = createSprite(width/2+300,height/2 )
+    bin.addImage(trashimg)
+    bin.scale= 0.5
+    bin.visible=false
+
+    paper = createSprite(width/2+300,height/2 )
+    paper.addImage(paperimg)
+    paper.visible=false
+
+    soda = createSprite(width/2+300,height/2 )
+    soda.addImage(sodaimg)
+    soda.visible=false
+
     peoplegroup = new Group()
 }
 
@@ -41,9 +61,17 @@ function draw(){
 
       if(gameState === 1 ) {
           start.visible = false
+          bin.visible=true
+          person.visible=true
           p1=new People()
           p2=new People()
           p3=new People()
+         
+
+         
+
+          addToTrash(soda)
+          addToTrash(paper)
 
           p1.display()
           p2.display()
@@ -52,4 +80,11 @@ function draw(){
       } 
 
     drawSprites()
+}
+
+function addToTrash(object){
+    if(person.isTouching(object)){
+        object.x=bin.x
+        object.y=bin.x
+    }
 }
